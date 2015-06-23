@@ -255,7 +255,7 @@ html {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 body {
-  font-family: "Gotham SSm", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 17px;
   line-height: 1.42857143;
   color: #333333;
@@ -340,7 +340,7 @@ h6,
 .h4,
 .h5,
 .h6 {
-  font-family: "Gotham SSm", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 500;
   line-height: 1.1;
   color: inherit;
@@ -7467,7 +7467,7 @@ td.visible-print {
 }
 .comments-container.fullpage > .back {
   color: #999999;
-  font-family: "Gotham SSm", "Gotham SSm", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 @media screen and (min-width: 768px) {
   .comments-container.fullpage > .back {
@@ -7484,7 +7484,7 @@ td.visible-print {
   line-height: 20px;
 }
 .comments-container.fullpage > h1 {
-  font-family: "Gotham SSm", "Gotham SSm", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: bold;
   text-transform: uppercase;
   margin-bottom: 24px;
@@ -8072,7 +8072,7 @@ a.btn.btn-blue:active {
   transition: none;
 }
 p {
-  font-family: Georgia, "Times New Roman", Times, serif;
+  font-family: Georgia, "Source Sans Pro", Times, serif;
 }
 header {
   background: #222222;
@@ -8173,7 +8173,7 @@ header a.toolkit-link:hover {
   }
 }
 input[type="file"] {
-  font-family: "Gotham SSm", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 15px;
   color: #999;
 }
@@ -8206,7 +8206,7 @@ input[type="file"] {
 }
 .control-label,
 .form-header {
-  font-family: "Knockout 31 4r", Helvetica, Arial, sans-serif;
+  font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
   font-weight: normal;
   font-size: 15px;
   text-transform: uppercase;
@@ -8250,7 +8250,7 @@ input[type="file"] {
 .nav-pills > li > a {
   padding: 6px 15px 4px;
   text-transform: none;
-  font-family: "Gotham SSm", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   color: #4669ae;
   font-size: 13px;
@@ -8259,7 +8259,7 @@ input[type="file"] {
   background-color: #4669ae !important;
 }
 .radio-inline {
-  font-family: "Gotham SSm", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-transform: none;
   font-size: 15px;
   letter-spacing: 0;
@@ -8272,7 +8272,7 @@ input[type="file"] {
   margin-bottom: 6px;
 }
 .sample-credit {
-  font-family: "Knockout 31 4r", Helvetica, Arial, sans-serif;
+  font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.05rem;
@@ -8302,7 +8302,7 @@ input[type="file"] {
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.05rem;
-  font-family: "Knockout 31 4r", Helvetica, Arial, sans-serif;
+  font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
   color: #999;
 }
 @media screen and (max-width: 699px) {
@@ -8323,7 +8323,7 @@ input[type="file"] {
   }
 }
 .help-text {
-  font-family: "Gotham SSm", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #999;
   font-size: 14px;
 }

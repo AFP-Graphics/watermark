@@ -30,25 +30,18 @@ var previewScale = IS_MOBILE ? 0.32 : 0.64;
 var dy = 0;
 var dx = 0;
 var logoDimensions = {
-  'npr': {
-    w: 150,
-    h: 51
-  },
   'afp': {
-    w: 150,
-    h: 51
-  },
-  'music': {
-    w: 306,
-    h: 81
+    w: 160,
+    h: 88
   }
 };
-var elementPadding = 40;
+var elementPadding = 20;
+var logoPadding = 0;
 var image;
 var imageFilename = 'image';
 var currentCrop = 'twitter';
-var currentLogo = 'npr';
-var currentLogoColor = 'white';
+var currentLogo = 'afp';
+var currentLogoColor = 'blue';
 var currentTextColor = 'white';
 var currentCopyright;
 var credit = 'Belal Khan/Flickr'
@@ -125,8 +118,11 @@ var renderCanvas = function() {
   canvas.width = fixedWidth;
 
   // if we're cropping, use the aspect ratio for the height
-  if (currentCrop !== 'original') {
+  if (currentCrop == '169') {
     canvas.height = fixedWidth / (16 / 9);
+  }
+  if (currentCrop == 'twitter') {
+    canvas.height = fixedWidth / (2 / 1);
   }
 
   // clear the canvas
@@ -184,12 +180,12 @@ var renderCanvas = function() {
   if (currentLogoColor === 'white') {
     ctx.globalAlpha = "0.8";
   } else {
-    ctx.globalAlpha = "0.6";
+    ctx.globalAlpha = "1";
   }
   ctx.drawImage(
     logo,
-    elementPadding,
-    currentLogo === 'npr' ? elementPadding : elementPadding - 14,
+    7,
+    1,
     logoDimensions[currentLogo]['w'],
     logoDimensions[currentLogo]['h']
   );
@@ -201,7 +197,7 @@ var renderCanvas = function() {
   ctx.textBaseline = 'bottom';
   ctx.textAlign = 'left';
   ctx.fillStyle = currentTextColor;
-  ctx.font = 'normal 20pt "Gotham SSm"';
+  ctx.font = 'normal 16pt "Source Sans Pro"';
 
   if (currentTextColor === 'white') {
     ctx.shadowColor = 'rgba(0,0,0,0.7)';
@@ -217,8 +213,8 @@ var renderCanvas = function() {
   var creditWidth = ctx.measureText(credit);
   ctx.fillText(
     credit,
-    canvas.width - (creditWidth.width + elementPadding),
-    canvas.height - elementPadding
+    canvas.width - (creditWidth.width + elementPadding + 20),
+    canvas.height - elementPadding - 10
   );
 
   validateForm();
@@ -235,7 +231,7 @@ var buildCreditString = function() {
     if ($photographer.val() === '') {
       creditString = 'NPR';
     } else {
-      creditString = $photographer.val() + '/NPR';
+      creditString = $photographer.val() + '/ NPR';
     }
   } else if (val === 'freelance') {
     creditString = $photographer.val() + ' for NPR';
@@ -246,7 +242,7 @@ var buildCreditString = function() {
     }
   } else if (val === 'ap') {
     if ($photographer.val() !== '') {
-      creditString = $photographer.val() + '/AP';
+      creditString = $photographer.val() + '/ AP';
     } else {
       creditString = 'AP';
     }
@@ -258,7 +254,7 @@ var buildCreditString = function() {
     }
   } else {
     if ($photographer.val() !== '') {
-      creditString = $photographer.val() + '/' + $source.val();
+      creditString = $photographer.val() + ' / ' + $source.val();
     } else {
       creditString = $source.val();
     }
