@@ -73,16 +73,16 @@
               <h6 class="control-label">Copyright Holder <span class="required is-visible">(Required)</span></h6>
 
               <select class="copyright-holder form-control">
-                <option></option>
-                <option value="npr">NPR</option>
-                <option value="freelance">Freelance</option>
-                <option value="ap">AP</option>
-                <option value="getty">Getty</option>
-                <option value="third-party">Third-Party/Courtesy</option>
+                <option value="afp" active>AFP</option>
+                <option value="none">None</option>
+<!--                 <option value="freelance">Freelance</option> -->
+<!--                 <option value="ap">AP</option> -->
+<!--                 <option value="getty">Getty</option> -->
+<!--                 <option value="third-party">Third-Party/Courtesy</option> -->
               </select>
             </div>
 
-            <div class="form-group" style="display: none;">
+            <div class="form-group">
               <label class="control-label">Photographer <span class="required">(Required)</span></label>
               <input type="text" class="form-control" id="photographer" name="photographer">
             </div>
@@ -97,13 +97,13 @@
                 <h6 class="control-label">Crop</h6>
                 <div class="btn-group btn-group-justified btn-group-sm" data-toggle="buttons">
                   <label class="btn btn-primary">
-                    <input type="radio" name="crop" id="169" value="169"> 16x9
+                    <input type="radio" name="crop" id="twitter" value="twitter"> 16x9 <i class="fa fa-twitter"></i>
                   </label>
-                  <label class="btn btn-primary active">
+                  <!-- <label class="btn btn-primary active">
                     <input type="radio" name="crop" id="twitter" value="twitter" checked> <i class="fa fa-twitter"></i>
-                  </label>
-                  <label class="btn btn-primary">
-                    <input type="radio" name="crop" id="original" value="original"> Original
+                  </label> -->
+                  <label class="btn btn-primary active">
+                    <input type="radio" name="crop" id="original" value="original" checked> Original
                   </label>
 
                 </div>

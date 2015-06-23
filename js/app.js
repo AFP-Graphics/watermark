@@ -36,15 +36,15 @@ var logoDimensions = {
   }
 };
 var elementPadding = 20;
-var logoPadding = 0;
+var paddingLogo = [1, 7];
 var image;
 var imageFilename = 'image';
-var currentCrop = 'twitter';
+var currentCrop = ' original';
 var currentLogo = 'afp';
 var currentLogoColor = 'blue';
 var currentTextColor = 'white';
-var currentCopyright;
-var credit = 'Belal Khan/Flickr'
+var currentCopyright = 'afp';
+var credit = 'AFP'
 var shallowImage = false;
 
 
@@ -118,12 +118,12 @@ var renderCanvas = function() {
   canvas.width = fixedWidth;
 
   // if we're cropping, use the aspect ratio for the height
-  if (currentCrop == '169') {
+  if (currentCrop == 'twitter') {
     canvas.height = fixedWidth / (16 / 9);
   }
-  if (currentCrop == 'twitter') {
-    canvas.height = fixedWidth / (2 / 1);
-  }
+  // if (currentCrop == 'twitter') {
+  //   canvas.height = fixedWidth / (2 / 1);
+  // }
 
   // clear the canvas
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -182,10 +182,11 @@ var renderCanvas = function() {
   } else {
     ctx.globalAlpha = "1";
   }
+  if (currentLogoColor == "blue") paddingLogo = [0, 0];
   ctx.drawImage(
     logo,
-    7,
-    1,
+    paddingLogo[0],
+    scaledImageHeight / 20 * 1,
     logoDimensions[currentLogo]['w'],
     logoDimensions[currentLogo]['h']
   );
@@ -227,32 +228,34 @@ var buildCreditString = function() {
   var creditString;
   var val = $copyrightHolder.val();
 
-  if (val === 'npr') {
+  if (val === 'afp') {
     if ($photographer.val() === '') {
-      creditString = 'NPR';
+      creditString = 'AFP';
     } else {
-      creditString = $photographer.val() + '/ NPR';
+      creditString = $photographer.val() + ' / AFP';
     }
-  } else if (val === 'freelance') {
-    creditString = $photographer.val() + ' for NPR';
-    if ($photographer.val() !== '') {
-      $photographer.parents('.form-group').removeClass('has-warning');
-    } else {
-      $photographer.parents('.form-group').addClass('has-warning');
-    }
-  } else if (val === 'ap') {
-    if ($photographer.val() !== '') {
-      creditString = $photographer.val() + '/ AP';
-    } else {
-      creditString = 'AP';
-    }
-  } else if (val === 'getty') {
-    if ($photographer.val() !== '') {
-      creditString = $photographer.val() + '/Getty Images';
-    } else {
-      creditString = 'Getty Images';
-    }
-  } else {
+  }
+  // else if (val === 'freelance') {
+  //   creditString = $photographer.val() + ' for NPR';
+  //   if ($photographer.val() !== '') {
+  //     $photographer.parents('.form-group').removeClass('has-warning');
+  //   } else {
+  //     $photographer.parents('.form-group').addClass('has-warning');
+  //   }
+  // } else if (val === 'ap') {
+  //   if ($photographer.val() !== '') {
+  //     creditString = $photographer.val() + '/ AP';
+  //   } else {
+  //     creditString = 'AP';
+  //   }
+  // } else if (val === 'getty') {
+  //   if ($photographer.val() !== '') {
+  //     creditString = $photographer.val() + '/Getty Images';
+  //   } else {
+  //     creditString = 'Getty Images';
+  //   }
+  // }
+  else {
     if ($photographer.val() !== '') {
       creditString = $photographer.val() + ' / ' + $source.val();
     } else {
@@ -467,7 +470,7 @@ var onSaveClick = function(e) {
     imageFilename = filename[filename.length - 1].split('.')[0];
   }
 
-  link.download = 'twitterbug-' + imageFilename + '.png';
+  link.download = 'afp-' + imageFilename + '.png';
 
   /// convert canvas content to data-uri for link. When download
   /// attribute is set the content pointed to by link will be
@@ -545,24 +548,26 @@ var onCopyrightChange = function() {
   $photographer.parents('.form-group').removeClass('has-warning');
   $source.parents('.form-group').removeClass('has-warning');
 
-  if (currentCopyright === 'npr') {
+  if (currentCopyright === 'afp') {
     $photographer.parents('.form-group').removeClass('required').slideDown();
     $source.parents('.form-group').slideUp();
-  } else if (currentCopyright === 'freelance') {
-    $photographer.parents('.form-group').slideDown();
-    $source.parents('.form-group').slideUp();
-    $photographer.parents('.form-group').addClass('has-warning required');
-  } else if (currentCopyright === 'ap' || currentCopyright === 'getty') {
-    $photographer.parents('.form-group').removeClass('required').slideDown();
-    $source.parents('.form-group')
-      .slideUp()
-      .removeClass('has-warning required');
-
-  } else if (currentCopyright === 'third-party') {
-    $photographer.parents('.form-group').removeClass('required').slideDown();
-    $source.parents('.form-group').slideDown();
-    $source.parents('.form-group').addClass('has-warning required');
-  } else {
+  }
+  // else if (currentCopyright === 'freelance') {
+  //   $photographer.parents('.form-group').slideDown();
+  //   $source.parents('.form-group').slideUp();
+  //   $photographer.parents('.form-group').addClass('has-warning required');
+  // } else if (currentCopyright === 'ap' || currentCopyright === 'getty') {
+  //   $photographer.parents('.form-group').removeClass('required').slideDown();
+  //   $source.parents('.form-group')
+  //     .slideUp()
+  //     .removeClass('has-warning required');
+  //
+  // } else if (currentCopyright === 'third-party') {
+  //   $photographer.parents('.form-group').removeClass('required').slideDown();
+  //   $source.parents('.form-group').slideDown();
+  //   $source.parents('.form-group').addClass('has-warning required');
+  // }
+  else {
     credit = '';
     $photographer.parents('.form-group').slideUp();
     $source.parents('.form-group')
