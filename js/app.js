@@ -44,7 +44,8 @@ var currentLogo = 'afp';
 var currentLogoColor = 'blue';
 var currentTextColor = 'white';
 var currentCopyright = 'afp';
-var credit = 'AFP'
+var originalCredit = 'Anne-Claire Huet / AFP';
+var credit;
 var shallowImage = false;
 
 
@@ -75,7 +76,7 @@ var onDocumentLoad = function(e) {
   $fileinput = $('.fileinput');
   $customFilename = $('.custom-filename');
 
-  img.src = 'assets/test-kitten.jpg';
+  img.src = 'assets/cooper.jpg';
   img.onload = onImageLoad;
   logo.src = 'assets/logo-' + currentLogo + '-' + currentLogoColor + '.png';
   logo.onload = renderCanvas;
@@ -236,8 +237,8 @@ var buildCreditString = function() {
   var val = $copyrightHolder.val();
 
   if (val === 'afp') {
-    if ($photographer.val() === '') {
-      creditString = 'AFP';
+    if ($photographer.val() == '') {
+      creditString = originalCredit;
     } else {
       creditString = $photographer.val() + ' / AFP';
     }
