@@ -39,7 +39,7 @@ var elementPadding = 20;
 var paddingLogo = [1, 7];
 var image;
 var imageFilename = 'image';
-var currentCrop = ' original';
+var currentCrop = 'original';
 var currentLogo = 'afp';
 var currentLogoColor = 'blue';
 var currentTextColor = 'white';
@@ -108,6 +108,10 @@ var onDocumentLoad = function(e) {
   // $imageLink.on('paste', handleImageLink);
 
   renderCanvas();
+
+  $(window).resize(function() {
+    renderCanvas();
+  });
 }
 
 /*
@@ -130,8 +134,10 @@ var renderCanvas = function() {
 
   // determine height of canvas and scaled image, then draw the image
   var imageAspect = img.width / img.height;
+  var rescale = window.innerWidth <= 700 ? 0.32 : 0.64;
 
   if (currentCrop === 'original') {
+    $('.canvas-cell').height(fixedWidth / imageAspect * rescale);
     canvas.height = fixedWidth / imageAspect;
     scaledImageHeight = canvas.height;
     ctx.drawImage(
@@ -141,12 +147,13 @@ var renderCanvas = function() {
       fixedWidth,
       scaledImageHeight
     );
-  } else {
+  } else { //Image horizontale
     if (img.width / img.height > canvas.width / canvas.height) {
       shallowImage = true;
 
       scaledImageHeight = fixedWidth / imageAspect;
-      scaledImageWidth = canvas.height * (img.width / img.height)
+      scaledImageWidth = canvas.height * (img.width / img.height);
+      $('.canvas-cell').height(scaledImageWidth / imageAspect * rescale+50);
       ctx.drawImage(
         img,
         0,
@@ -158,10 +165,11 @@ var renderCanvas = function() {
         scaledImageWidth,
         canvas.height
       );
-    } else {
+    } else { //Image verticale
       shallowImage = false;
 
       scaledImageHeight = fixedWidth / imageAspect;
+      $('.canvas-cell').height(canvas.height*rescale+50);
       ctx.drawImage(
         img,
         0,
@@ -217,7 +225,6 @@ var renderCanvas = function() {
     canvas.width - (creditWidth.width + elementPadding + 20),
     canvas.height - elementPadding - 10
   );
-
   validateForm();
 }
 
@@ -367,21 +374,23 @@ var onDrag = function(e) {
  * Take an image from file input and load it
  */
 var handleImage = function(e) {
-  var reader = new FileReader();
-  reader.onload = function(e) {
-    // reset dy value
-    dy = 0;
-    dx = 0;
+  if (e.target.value !== "") {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      // reset dy value
+      dy = 0;
+      dx = 0;
 
-    image = e.target.result;
-    imageFilename = $('.fileinput-filename').text().split('.')[0];
-    img.src = image;
-    $customFilename.text(imageFilename);
-    $customFilename.parents('.form-group').addClass('has-file');
-    $imageLink.val('');
-    $imageLink.parents('.form-group').removeClass('has-file');
+      image = e.target.result;
+      imageFilename = $('.fileinput-filename').text().split('.')[0];
+      img.src = image;
+      $customFilename.text(imageFilename);
+      $customFilename.parents('.form-group').addClass('has-file');
+      $imageLink.val('');
+      $imageLink.parents('.form-group').removeClass('has-file');
+    }
+    reader.readAsDataURL(e.target.files[0]);
   }
-  reader.readAsDataURL(e.target.files[0]);
 }
 
 
@@ -389,49 +398,48 @@ var handleImage = function(e) {
  * Load a remote  image
  */
 var handleImageLink = function(e) {
-  var requestStatus =
-    // Test if image URL returns a 200
-    $.ajax({
-      url: $imageLink.val(),
-      success: function(data, status, xhr) {
-        var responseType = xhr.getResponseHeader('content-type').toLowerCase();
+  //var requestStatus =
+  // Test if image URL returns a 200
+  $.ajax({
+    url: $imageLink.val(),
+    success: function(data, status, xhr) {
+      var responseType = xhr.getResponseHeader('content-type').toLowerCase();
+      // if content type is jpeg, gif or png, load the image into the canvas
+      if (MIME_TYPES.indexOf(responseType) >= 0) {
+        // reset dy value
+        dy = 0;
+        dx = 0;
 
-        // if content type is jpeg, gif or png, load the image into the canvas
-        if (MIME_TYPES.indexOf(responseType) >= 0) {
-          // reset dy value
-          dy = 0;
-          dx = 0;
+        $fileinput.fileinput('clear');
+        $imageLink.parents('.form-group').addClass('has-file').removeClass(
+          'has-error');
+        $imageLink.parents('.input-group').next().text(
+          'Click to edit name');
 
-          $fileinput.fileinput('clear');
-          $imageLink.parents('.form-group').addClass('has-file').removeClass(
-            'has-error');
-          $imageLink.parents('.input-group').next().text(
-            'Click to edit name');
+        img.src = $imageLink.val();
+        img.crossOrigin = "anonymous"
+          // firefox won't render image on first try without this  ¯\_(ツ)_/¯
+        img.src = img.src;
 
-          img.src = $imageLink.val();
-          img.crossOrigin = "anonymous"
-            // firefox won't render image on first try without this  ¯\_(ツ)_/¯
-          img.src = img.src;
+        var filename = $imageLink.val().split('/');
+        imageFilename = filename[filename.length - 1].split('.')[0];
 
-          var filename = $imageLink.val().split('/');
-          imageFilename = filename[filename.length - 1].split('.')[0];
+        $imageLink.val(imageFilename);
 
-          $imageLink.val(imageFilename);
-
-          // otherwise, display an error
-        } else {
-          $imageLink.parents('.form-group').addClass('has-error');
-          $imageLink.parents('.input-group').next().text(
-            'Not a valid image URL');
-          return;
-        }
-      },
-      error: function(data) {
+        // otherwise, display an error
+      } else {
         $imageLink.parents('.form-group').addClass('has-error');
         $imageLink.parents('.input-group').next().text(
           'Not a valid image URL');
+        return;
       }
-    });
+    },
+    error: function(data) {
+      $imageLink.parents('.form-group').addClass('has-error');
+      $imageLink.parents('.input-group').next().text(
+        'Not a valid image URL');
+    }
+  });
 }
 
 /*
@@ -470,12 +478,13 @@ var onSaveClick = function(e) {
     imageFilename = filename[filename.length - 1].split('.')[0];
   }
 
-  link.download = 'afp-' + imageFilename + '.png';
+  link.download = 'afp-' + imageFilename + '.jpg';
 
   /// convert canvas content to data-uri for link. When download
   /// attribute is set the content pointed to by link will be
   /// pushed as "download" in HTML5 capable browsers
-  link.href = canvas.toDataURL();
+
+  link.href = canvas.toDataURL("image/jpeg",1); //Chrome crashes with large PNGs
   link.target = "_blank";
 
   /// create a "fake" click-event to trigger the download
