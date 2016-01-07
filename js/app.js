@@ -1,3 +1,5 @@
+http://medialab.afp.com/solr/newsml/select?q=*:*&fq=product:multimedia&rows=1&wt=json
+
 // DOM elements
 var $source;
 var $photographer;
@@ -398,7 +400,7 @@ var handleImage = function(e) {
 /*
  * Load a remote  image
  */
-var handleImageLink = function(e) {
+var handleImageLink = function(e,url) {
   //var requestStatus =
   // Test if image URL returns a 200
   $.ajax({
@@ -441,6 +443,37 @@ var handleImageLink = function(e) {
         'Not a valid image URL');
     }
   });
+}
+
+getImg();
+
+function getImg() {
+    $.getJSON("http://medialab.afp.com/solr/newsml/select?q=*:*&fq=product:multimedia&rows=100&wt=json")
+        .done(function(data) {
+            getRand(data);
+        })
+        .fail(function() {
+            console.log("error");
+        });
+}
+
+function getRand(data) {
+    var random = rand(0, data.response.docs.length - 1);
+    var img = data.response.docs[random];
+    var imgData = JSON.parse(img.bagItem);
+    if (imgData[0].provider=="AFP") {
+        var plusHauteRes = imgData[0].medias.length-1;
+        var hiUrl = imgData[0].medias[plusHauteRes].href;
+        $imageLink.val("http://medialab.afp.com"+hiUrl);
+        handleImageLink();
+        $photographer.val(imgData[0].creator);
+    } else {
+        getRand(data);
+    }
+}
+
+function rand(num1, num2) {
+    return Math.floor(Math.random() * num2) + 1 - num1;
 }
 
 /*
