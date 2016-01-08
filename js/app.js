@@ -447,7 +447,7 @@ var handleImageLink = function(e,url) {
 getImg();
 
 function getImg() {
-    $.getJSON("http://medialab.afp.com/solr/newsml/select?q=*:*&fq=product:multimedia&rows=100&wt=json")
+    $.getJSON("https://graphics.afp.com/data/medialab4w.json")
         .done(function(data) {
             getRand(data);
         })
