@@ -78,7 +78,6 @@ var onDocumentLoad = function(e) {
   $fileinput = $('.fileinput');
   $customFilename = $('.custom-filename');
 
-  img.src = 'assets/cooper.jpg';
   img.onload = onImageLoad;
   logo.src = 'assets/logo-' + currentLogo + '-' + currentLogoColor + '.png';
   logo.onload = renderCanvas;
@@ -240,7 +239,7 @@ var buildCreditString = function() {
 
   if (val === 'afp') {
     if ($photographer.val() == '') {
-      creditString = originalCredit;
+      // creditString = originalCredit;
     } else {
       creditString = $photographer.val() + ' / AFP';
     }
@@ -454,6 +453,8 @@ function getImg() {
         })
         .fail(function() {
             console.log("error");
+            img.src = 'assets/cooper.jpg';
+            $photographer.val(originalCredit);
         });
 }
 
