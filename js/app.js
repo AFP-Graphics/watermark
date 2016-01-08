@@ -402,46 +402,25 @@ var handleImage = function(e) {
 var handleImageLink = function(e,url) {
   //var requestStatus =
   // Test if image URL returns a 200
-  $.ajax({
-    url: $imageLink.val(),
-    success: function(data, status, xhr) {
-      var responseType = xhr.getResponseHeader('content-type').toLowerCase();
-      // if content type is jpeg, gif or png, load the image into the canvas
-      if (MIME_TYPES.indexOf(responseType) >= 0) {
-        // reset dy value
-        dy = 0;
-        dx = 0;
+  // reset dy value
+  dy = 0;
+  dx = 0;
 
-        $fileinput.fileinput('clear');
-        $imageLink.parents('.form-group').addClass('has-file').removeClass(
-          'has-error');
-        $imageLink.parents('.input-group').next().text(
-          'Click to edit name');
+  $fileinput.fileinput('clear');
+  $imageLink.parents('.form-group').addClass('has-file').removeClass(
+    'has-error');
+  $imageLink.parents('.input-group').next().text(
+    'Click to edit name');
 
-        img.src = $imageLink.val();
-        img.crossOrigin = "anonymous"
-          // firefox won't render image on first try without this  ¯\_(ツ)_/¯
-        img.src = img.src;
+  img.src = $imageLink.val();
+  img.crossOrigin = "anonymous"
+    // firefox won't render image on first try without this  ¯\_(ツ)_/¯
+  img.src = img.src;
 
-        var filename = $imageLink.val().split('/');
-        imageFilename = filename[filename.length - 1].split('.')[0];
+  var filename = $imageLink.val().split('/');
+  imageFilename = filename[filename.length - 1].split('.')[0];
 
-        $imageLink.val(imageFilename);
-
-        // otherwise, display an error
-      } else {
-        $imageLink.parents('.form-group').addClass('has-error');
-        $imageLink.parents('.input-group').next().text(
-          'Not a valid image URL');
-        return;
-      }
-    },
-    error: function(data) {
-      $imageLink.parents('.form-group').addClass('has-error');
-      $imageLink.parents('.input-group').next().text(
-        'Not a valid image URL');
-    }
-  });
+  $imageLink.val(imageFilename);
 }
 
 getImg();
