@@ -382,9 +382,9 @@ var handleImage = function(e) {
       // reset dy value
       dy = 0;
       dx = 0;
-
       image = e.target.result;
       imageFilename = $('.fileinput-filename').text().split('.')[0];
+      img.crossOrigin = null;
       img.src = image;
       $customFilename.text(imageFilename);
       $customFilename.parents('.form-group').addClass('has-file');
@@ -411,7 +411,6 @@ var handleImageLink = function(e,url) {
     'has-error');
   $imageLink.parents('.input-group').next().text(
     'Click to edit name');
-
   img.src = $imageLink.val();
   img.crossOrigin = "anonymous"
     // firefox won't render image on first try without this  ¯\_(ツ)_/¯
