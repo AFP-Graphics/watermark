@@ -43,7 +43,7 @@ var image;
 var imageFilename = 'image';
 var currentCrop = 'original';
 var currentLogo = 'afp';
-var currentLogoColor = 'blue';
+var currentLogoColor = 'white';
 var currentTextColor = 'white';
 var currentCopyright = 'afp';
 var originalCredit = 'Anne-Claire Huet / AFP';
