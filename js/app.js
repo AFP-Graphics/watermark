@@ -1,4 +1,4 @@
-$.getJSON('http://freegeoip.net/json/?callback=?', function(data) {
+$.getJSON('https://freegeoip.net/json/?callback=?', function(data) {
   console.log(JSON.stringify(data, null, 2));
   var regex = /^158\.50/;
  if(regex.exec(data.ip)) {
