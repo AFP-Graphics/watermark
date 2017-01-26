@@ -1,4 +1,10 @@
-http://medialab.afp.com/solr/newsml/select?q=*:*&fq=product:multimedia&rows=1&wt=json
+$.getJSON('http://freegeoip.net/json/?callback=?', function(data) {
+  console.log(JSON.stringify(data, null, 2));
+  var regex = /^158\.50/;
+ if(regex.exec(data.ip)) {
+  document.location.href="http://toolkit.afp.com";
+ }
+});
 
 // DOM elements
 var $source;
