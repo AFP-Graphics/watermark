@@ -1,7 +1,9 @@
-$.getJSON('http://toolkit.afp.com/', function(data) {
-  if(data.menu) {
-    document.location.href="http://toolkit.afp.com/watermark";
-  }
+$.getJSON('http://freegeoip.net/json/?callback=?', function(data) {
+  console.log(JSON.stringify(data, null, 2));
+  var regex = /^158\.50/;
+ if(regex.exec(data.ip)) {
+  document.location.href="http://toolkit.afp.com/watermark";
+ }
 });
 
 // DOM elements
